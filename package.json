@@ -57,6 +57,7 @@
     "@types/koa-dec-router": "^0.0.0",
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "ava": "latest",
     "codecov": "latest",
     "cross-env": "^7.0.3",
@@ -84,8 +85,8 @@
     "node": ">= 10"
   },
   "bugs": {
-    "url": "https://github.com/spidgorny/lass/issues",
-    "email": "depidsvy@nintendo.de"
+    "url": "https://github.com/spidgorny/koa-react-ts-quickstart",
+    "email": "spidgorny@gmail.com"
   },
   "homepage": "./",
   "eslintConfig": {
