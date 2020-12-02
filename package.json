@@ -74,11 +74,11 @@
     "xo": "^0.35.0"
   },
   "xo": {
-    "prettier": true,
-    "space": true,
-    "extends": [
-      "xo-lass"
-    ]
+      "prettier": true,
+      "space": false,
+      "extends": [
+          "xo-lass"
+      ]
   },
   "type": "module",
   "engines": {
