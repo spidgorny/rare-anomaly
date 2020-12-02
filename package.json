@@ -7,10 +7,8 @@
     "type": "git",
     "url": "https://github.com/spidgorny/lass"
   },
-  "author": "DEPIDSVY <depidsvy@nintendo.de> ()",
-  "contributors": [
-    "DEPIDSVY <depidsvy@nintendo.de> ()"
-  ],
+  "author": "Slawa <spidgorny@gmail.com> ()",
+  "contributors": [],
   "license": "MIT",
   "scripts": {
     "dev": "cross-env DEBUG=dec-router ts-node-dev server/index.ts",
@@ -56,6 +54,7 @@
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "@types/koa": "^2.11.6",
+    "@types/koa-dec-router": "^0.0.0",
     "@types/node": "^14.14.10",
     "ava": "latest",
     "codecov": "latest",

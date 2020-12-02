@@ -2000,6 +2000,11 @@
   dependencies:
     "@types/koa" "*"
 
+"@types/koa-dec-router@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@types/koa-dec-router/-/koa-dec-router-0.0.0.tgz#6ac34bc4ee5fbcb5867bccffb3105ea7f44ef2e3"
+  integrity sha512-udHQhABi4BoqZFE33ZVK8X9WJRGsw6ngBmoPYut2rTg3adFPj9AuhxKg0MHN6BMsVyurleZ6v8PnXw3PKRKZQQ==
+
 "@types/koa@*", "@types/koa@^2.11.6":
   version "2.11.6"
   resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.11.6.tgz#b7030caa6b44af801c2aea13ba77d74aff7484d5"

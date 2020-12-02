@@ -1,7 +1,7 @@
 import {controller, get} from "koa-dec-router";
-import {Context} from "vm";
+import {Context} from "koa";
 
-async function apiHandler(ctx, next) {
+async function apiHandler(ctx: Context, next: () => void) {
   console.log("handle all api and subclass's");
   await next();
 }

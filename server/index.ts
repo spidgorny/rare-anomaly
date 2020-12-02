@@ -1,5 +1,5 @@
 const Koa = require("koa");
-import {Context} from "vm";
+import {Context} from "koa";
 import * as path from "path";
 
 const logger = require("koa-logger");
