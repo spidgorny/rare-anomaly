@@ -1,6 +1,5 @@
 {
   "name": "rare-anomaly",
-
   "description": "my awe-inspiring project",
   "version": "1.0.0",
   "main": "index.js",
@@ -9,10 +8,16 @@
     "url": "https://github.com/spidgorny/lass"
   },
   "author": "DEPIDSVY <depidsvy@nintendo.de> ()",
-  "contributors": ["DEPIDSVY <depidsvy@nintendo.de> ()"],
+  "contributors": [
+    "DEPIDSVY <depidsvy@nintendo.de> ()"
+  ],
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env DEBUG=dec-router ts-node-dev src/index.ts",
+    "dev": "cross-env DEBUG=dec-router ts-node-dev server/index.ts",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "rs:test": "react-scripts test",
+    "eject": "react-scripts eject",
     "lint:js": "xo",
     "lint:md": "remark . -qfo",
     "lint": "yarn run lint:js && yarn run lint:md",
@@ -21,11 +26,14 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "test-coverage": "cross-env NODE_ENV=test nyc yarn run test"
   },
-  "keywords": [ "lass", "lass" ],
-
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "lass",
+    "lass"
+  ],
   "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "koa": "^2.13.0",
     "koa-404-handler": "^0.0.2",
     "koa-better-error-handler": "^6.0.1",
@@ -38,24 +46,29 @@
     "koa-ping": "^0.1.1",
     "koa-respond": "^2.1.0",
     "koa-router": "^10.0.0",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "@types/node": "^14.14.10",
-    "cross-env": "^7.0.3",
-    "prettier": "^2.2.1",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
+    "@types/koa": "^2.11.6",
+    "@types/node": "^14.14.10",
     "ava": "latest",
     "codecov": "latest",
+    "cross-env": "^7.0.3",
     "eslint": "latest",
+    "eslint-config-xo-lass": "latest",
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
     "nyc": "latest",
+    "prettier": "^2.2.1",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
-    "eslint-config-xo-lass": "latest",
     "typescript": "^4.1.2",
     "xo": "^0.35.0"
   },
@@ -66,6 +79,7 @@
       "xo-lass"
     ]
   },
+  "type": "module",
   "engines": {
     "node": ">= 10"
   },
@@ -73,5 +87,26 @@
     "url": "https://github.com/spidgorny/lass/issues",
     "email": "depidsvy@nintendo.de"
   },
-  "homepage": "https://github.com/spidgorny/lass"
+  "homepage": "./",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

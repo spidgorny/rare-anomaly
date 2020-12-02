@@ -1,4 +1,5 @@
-import { controller, get, post } from "koa-dec-router";
+import {controller, get} from "koa-dec-router";
+import {Context} from "vm";
 
 async function apiHandler(ctx, next) {
   console.log("handle all api and subclass's");
@@ -6,9 +7,10 @@ async function apiHandler(ctx, next) {
 }
 
 @controller("/hello", apiHandler)
-export default class Hello {
+export default // @ts-ignore
+class Hello {
   @get("/test")
-  async getApiCommon(ctx) {
+  async getApiCommon(ctx: Context) {
     // ...
     return "hello";
   }

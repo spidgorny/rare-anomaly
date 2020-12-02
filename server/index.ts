@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+const Koa = require("koa");
 import {Context} from "vm";
 import * as path from "path";
 
@@ -42,7 +42,7 @@ app.use(
 
 app.use(respond());
 app.use(json());
-app.use(kStatic('frontend/build', {}));
+app.use(kStatic('build', {}));
 
 app.use(health("/ping"));
 app.use(
@@ -53,8 +53,8 @@ app.use(
 );
 
 const router = new Router();
-router.get("/404", (ctx) => ctx.throw(404));
-router.get("/500", (ctx) => ctx.throw(500));
+router.get("/404", (ctx: Context) => ctx.throw(404));
+router.get("/500", (ctx: Context) => ctx.throw(500));
 
 // const decRouter = DecRouter({
 //   controllersDir: `${__dirname}/controllers`,
@@ -62,11 +62,10 @@ router.get("/500", (ctx) => ctx.throw(500));
 //   after: null, // global middleware
 //   autoLoadControllers: true,
 // });
-
 // app.use(decRouter.router.routes());
 // app.use(decRouter.router.allowedMethods());
 
-router.get("/", (ctx, next) => {
+router.get("/hello", (ctx: Context) => {
   ctx.body = "Hello Koa";
 });
 
