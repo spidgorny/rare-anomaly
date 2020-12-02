@@ -11,8 +11,8 @@
   "contributors": [],
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env DEBUG=dec-router ts-node-dev server/index.ts",
-    "start": "react-scripts start",
+    "dev": "cross-env DEBUG=dec-router ts-node-dev --project server/tsconfig.json server/index.ts",
+    "start": "cross-env PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "rs:test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -56,6 +56,7 @@
     "@types/koa": "^2.11.6",
     "@types/koa-dec-router": "^0.0.0",
     "@types/node": "^14.14.10",
+    "@types/react": "^17.0.0",
     "ava": "latest",
     "codecov": "latest",
     "cross-env": "^7.0.3",
