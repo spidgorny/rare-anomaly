@@ -1,4 +1,4 @@
-# lass
+# koa backend, react frontend, everything TypeScript, WebSockets
 
 [![build status](https://img.shields.io/travis/com/spidgorny/lass.svg)](https://travis-ci.com/spidgorny/lass)
 [![code coverage](https://img.shields.io/codecov/c/github/spidgorny/lass.svg)](https://codecov.io/gh/spidgorny/lass)
@@ -8,40 +8,54 @@
 [![license](https://img.shields.io/github/license/spidgorny/lass.svg)](LICENSE)
 [![npm downloads](https://img.shields.io/npm/dt/lass.svg)](https://npm.im/lass)
 
-> my awe-inspiring project
+> This a quickstart boilerplate for an application that
+> uses Koa as server, React as a frontend, connects them together
+> using WebSockets and uses TypeScript everywhere.
+
+![](docs/screenshot.png)
+
+Upon connecting the browser is sending it's userAgent to the server.
+
+The time is being sent by Koa backend every second - React just updates it.
+
+The [Send XXX] button sends a message to Koa backend - Koa displays it in the logs.
+
+```bash
+SockJS v0.3.21 bound to "/sock"
+√  success   Listening to 761K7Y2:3000
+GET /sock/info?t=1607002093916 2ms 200
+GET /sock/243/jgko1fyi/websocket 3ms (unfinished)
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36
+XXX 0.1649358394494378
+XXX 0.5709051519790933
+```
 
 ## Table of Contents
 
 
+
 ## Install
-
-[npm][]:
-
-```sh
-npm install lass
-```
 
 [yarn][]:
 
 ```sh
-yarn add lass
+yarn
 ```
 
 
 ## Usage
 
-```js
-const Lass = require('lass');
-
-const lass = new Lass();
-
-console.log(lass.renderName());
-// script
+```
+yarn run dev
 ```
 
+## Todo
+
+* [ ] https://github.com/intesso/connect-livereload maybe
 
 ## Contributors
 
+Slawa
 
 ## License
 
