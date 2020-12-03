@@ -32,7 +32,11 @@ export class WebSocketComponent extends React.Component<Props, State> {
 	setupWebSocket = (webSoc: WebSocket) => {
 		webSoc.onopen = (event: Event) => {
 			console.log('connected!', event);
-			webSoc.send(navigator.userAgent);
+			webSoc.send(
+				JSON.stringify({
+					userAgent: navigator.userAgent
+				})
+			);
 			// setState({
 			// 	connection
 			// });
