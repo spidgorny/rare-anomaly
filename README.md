@@ -16,9 +16,9 @@
 
 Upon connecting the browser is sending it's userAgent to the server.
 
-The time is being sent by Koa backend every second - React just updates it.
+The time is being sent by Koa backend every second - React just displays it.
 
-The [Send XXX] button sends a message to Koa backend - Koa displays it in the logs.
+The [Send XXX] button in the frontend sends a message to Koa backend - Koa displays it in the logs.
 
 ```bash
 SockJS v0.3.21 bound to "/sock"
@@ -45,7 +45,23 @@ yarn
 
 ## Usage
 
+Backend:
 ```
+yarn run dev
+```
+Open: http://localhost:3000/ to test backend.
+
+Frontend (development mode):
+```
+yarn run start
+```
+Open: http://localhost:3001/ to test react frontend.
+
+## Build
+
+Builds react to static files (build/) and starts the Koa server which will serve the static files from build/.
+```
+yarn run build
 yarn run dev
 ```
 
