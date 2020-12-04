@@ -1,120 +1,122 @@
 {
-    "name": "rare-anomaly",
-    "description": "my awe-inspiring project",
-    "version": "1.0.0",
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/spidgorny/lass"
-    },
-    "author": "Slawa <spidgorny@gmail.com> ()",
-    "contributors": [],
-    "license": "MIT",
-    "scripts": {
-        "dev": "cross-env DEBUG=dec-router ts-node-dev --project server/tsconfig.json server/index.ts",
-        "start": "cross-env PORT=3001 react-scripts start",
-        "build": "react-scripts build",
-        "rs:test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "lint:js": "xo",
-        "lint:md": "remark . -qfo",
-        "lint": "yarn run lint:js && yarn run lint:md",
-        "pretest": "yarn run lint",
-        "test": "cross-env NODE_ENV=test ava",
-        "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-        "test-coverage": "cross-env NODE_ENV=test nyc yarn run test"
-    },
-    "keywords": [
-        "lass",
-        "lass"
+  "name": "rare-anomaly",
+  "description": "my awe-inspiring project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spidgorny/lass"
+  },
+  "author": "Slawa <spidgorny@gmail.com> ()",
+  "contributors": [],
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env DEBUG=dec-router ts-node-dev --project server/tsconfig.json server/index.ts",
+    "start": "cross-env PORT=3001 react-scripts start",
+    "build": "react-scripts build",
+    "rs:test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint:js": "xo",
+    "lint:md": "remark . -qfo",
+    "lint": "yarn run lint:js && yarn run lint:md",
+    "pretest": "yarn run lint",
+    "test": "cross-env NODE_ENV=test ava",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "test-coverage": "cross-env NODE_ENV=test nyc yarn run test"
+  },
+  "keywords": [
+    "lass",
+    "lass"
+  ],
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "deep-equal": "^2.0.5",
+    "koa": "^2.13.0",
+    "koa-404-handler": "^0.0.2",
+    "koa-better-error-handler": "^6.0.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-dec-router": "^0.0.4",
+    "koa-easy-ws": "^1.3.0",
+    "koa-helmet": "^6.0.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-markdown": "^2.0.2",
+    "koa-ping": "^0.1.1",
+    "koa-respond": "^2.1.0",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "signale": "^1.4.0",
+    "sockjs": "^0.3.21",
+    "sockjs-client": "^1.5.0",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@types/koa": "^2.11.6",
+    "@types/koa-dec-router": "^0.0.0",
+    "@types/node": "^14.14.10",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/sockjs": "^0.3.32",
+    "@types/sockjs-client": "^1.5.0",
+    "ava": "latest",
+    "codecov": "latest",
+    "cross-env": "^7.0.3",
+    "eslint": "latest",
+    "eslint-config-xo-lass": "latest",
+    "fixpack": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "nyc": "latest",
+    "prettier": "^2.2.1",
+    "remark-cli": "latest",
+    "remark-preset-github": "latest",
+    "typescript": "^4.1.2",
+    "xo": "^0.35.0"
+  },
+  "xo": {
+    "prettier": true,
+    "space": false,
+    "extends": [
+      "xo-lass"
+    ]
+  },
+  "type": "module",
+  "engines": {
+    "node": ">= 10"
+  },
+  "bugs": {
+    "url": "https://github.com/spidgorny/koa-react-ts-quickstart",
+    "email": "spidgorny@gmail.com"
+  },
+  "homepage": "./",
+  "proxy": "http://localhost:3000",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ],
-    "dependencies": {
-        "@testing-library/jest-dom": "^5.11.4",
-        "@testing-library/react": "^11.1.0",
-        "@testing-library/user-event": "^12.1.10",
-        "koa": "^2.13.0",
-        "koa-404-handler": "^0.0.2",
-        "koa-better-error-handler": "^6.0.1",
-        "koa-bodyparser": "^4.3.0",
-        "koa-dec-router": "^0.0.4",
-        "koa-easy-ws": "^1.3.0",
-        "koa-helmet": "^6.0.0",
-        "koa-json": "^2.0.2",
-        "koa-logger": "^3.2.1",
-        "koa-markdown": "^2.0.2",
-        "koa-ping": "^0.1.1",
-        "koa-respond": "^2.1.0",
-        "koa-router": "^10.0.0",
-        "koa-static": "^5.0.0",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1",
-        "react-scripts": "4.0.1",
-        "signale": "^1.4.0",
-        "sockjs": "^0.3.21",
-        "sockjs-client": "^1.5.0",
-        "web-vitals": "^0.2.4"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "latest",
-        "@commitlint/config-conventional": "latest",
-        "@types/koa": "^2.11.6",
-        "@types/koa-dec-router": "^0.0.0",
-        "@types/node": "^14.14.10",
-        "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0",
-        "@types/sockjs": "^0.3.32",
-        "@types/sockjs-client": "^1.5.0",
-        "ava": "latest",
-        "codecov": "latest",
-        "cross-env": "^7.0.3",
-        "eslint": "latest",
-        "eslint-config-xo-lass": "latest",
-        "fixpack": "latest",
-        "husky": "latest",
-        "lint-staged": "latest",
-        "nyc": "latest",
-        "prettier": "^2.2.1",
-        "remark-cli": "latest",
-        "remark-preset-github": "latest",
-        "typescript": "^4.1.2",
-        "xo": "^0.35.0"
-    },
-    "xo": {
-        "prettier": true,
-        "space": false,
-        "extends": [
-            "xo-lass"
-        ]
-    },
-    "type": "module",
-    "engines": {
-        "node": ">= 10"
-    },
-    "bugs": {
-        "url": "https://github.com/spidgorny/koa-react-ts-quickstart",
-        "email": "spidgorny@gmail.com"
-    },
-    "homepage": "./",
-    "proxy": "http://localhost:3000",
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ],
-        "rules": {
-            "react/react-in-jsx-scope": "off"
-        }
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
+    "rules": {
+      "react/react-in-jsx-scope": "off",
+      "jsx-a11y/anchor-is-valid": "off"
     }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

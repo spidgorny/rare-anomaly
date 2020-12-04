@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useCallback, useEffect } from 'react';
 import { useWebSocket } from '../service/use-web-socket';
 
-export default function ListLogs(props: {}) {
-	const [data, send] = useWebSocket('/list-logs', []);
+export default function ShowConfig(props: {}) {
+	const [data, send] = useWebSocket('/config');
 
 	const fetchLogFiles = useCallback(() => {
 		send();
@@ -15,13 +15,9 @@ export default function ListLogs(props: {}) {
 
 	return (
 		<>
-			<div>
-				{data.map((el: string, index: number) => (
-					<div key={index}>{el}</div>
-				))}
-			</div>
+			<pre>{JSON.stringify(data, null, 2)}</pre>
 			<button type="button" onClick={() => fetchLogFiles()}>
-				Send XXX
+				Send /config
 			</button>
 		</>
 	);

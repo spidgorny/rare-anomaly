@@ -8,7 +8,7 @@ const WEB_SOCKET_ENDPOINT =
 interface Props {
 	name?: string;
 	maxReconnect: number;
-	render?: (data: MessageEvent, ws: WebSocket) => ReactNode;
+	render: (data: MessageEvent | undefined, ws: WebSocket) => ReactNode;
 }
 
 interface State {
@@ -37,12 +37,9 @@ export class WebSocketComponent extends React.Component<Props, State> {
 					userAgent: navigator.userAgent
 				})
 			);
-			// setState({
-			// 	connection
-			// });
 		};
 		webSoc.onmessage = (body: MessageEvent) => {
-			// console.log(body);
+			console.log('onmessage', body);
 			this.setState({
 				message: body,
 				timeStamp: Date.now()
@@ -71,7 +68,7 @@ export class WebSocketComponent extends React.Component<Props, State> {
 	};
 
 	render() {
-		if (this.state.ws && this.state.message && this.props.render) {
+		if (this.state.ws && this.props.render) {
 			return this.props.render(this.state.message, this.state.ws);
 		}
 		return <></>;
@@ -80,5 +77,6 @@ export class WebSocketComponent extends React.Component<Props, State> {
 
 WebSocketComponent.defaultProps = {
 	name: 'something',
-	maxReconnect: 5
+	maxReconnect: 5,
+	render: (props, ws) => <></>
 };

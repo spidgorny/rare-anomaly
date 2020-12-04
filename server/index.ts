@@ -34,8 +34,10 @@ const ws = setupSockServer(app);
 ws.on('connection', (conn: Connection) => {
 	conn.on('data', async (message: string) => {
 		const reply = await routeEvent(message);
-		console.log(reply);
-		conn.write(JSON.stringify(reply));
+		console.log('reply', reply);
+		if (reply) {
+			conn.write(JSON.stringify(reply));
+		}
 	});
 
 	function keepSendingTime() {

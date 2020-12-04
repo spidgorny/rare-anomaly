@@ -1,13 +1,15 @@
 import { listLogs } from './controllers/list-logs';
+import { getConfig } from './controllers/get-config';
 
 const signale = require('signale');
 
 const wsRoutes: Record<string, (msg: any) => void> = {
-	'/list-logs': listLogs
+	'/list-logs': listLogs,
+	'/config': getConfig
 };
 
 export async function routeEvent(message: string) {
-	signale.log(message);
+	signale.log('routeEvent', message);
 	try {
 		const event = JSON.parse(message);
 
