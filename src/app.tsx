@@ -1,40 +1,22 @@
-// @ts-expect-error
-import logo from './logo.svg';
 import './app.css';
 import { WebSocketComponent } from './service/web-socket';
+import Template from './page/template';
+import * as React from 'react';
+import ShowConfig from './component/show-config';
+import { WebSocketContext } from './service/use-web-socket';
 
-function App() {
+export default function App() {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				<WebSocketComponent
-					render={(event: MessageEvent, ws: WebSocket) => (
-						<>
-							<div>{event.data}</div>
-							<button
-								type="button"
-								onClick={() => ws.send('XXX ' + Math.random())}
-							>
-								Send XXX
-							</button>
-						</>
-					)}
-				/>
-			</header>
+			<WebSocketComponent
+				render={(event: MessageEvent | undefined, ws: WebSocket) => (
+					<WebSocketContext.Provider value={{ event, ws }}>
+						<Template title="Ticket List">
+							<ShowConfig />
+						</Template>
+					</WebSocketContext.Provider>
+				)}
+			/>
 		</div>
 	);
 }
-
-export default App;

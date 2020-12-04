@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useCallback, useState } from 'react';
+import { State } from 'sockjs-client';
 const deepEqual = require('deep-equal');
 
 interface IWebSocketContext {
@@ -12,9 +13,10 @@ export const WebSocketContext = React.createContext({} as IWebSocketContext);
 export function useWebSocket(
 	route: string,
 	initial?: any
-): [any, (data?: object) => void] {
+): [any, (data?: object) => void, State] {
 	const context = React.useContext(WebSocketContext);
 	const [state, setState] = useState(initial);
+	const [wsState, setWS] = useState(context.ws.readyState as State);
 
 	const send = useCallback(
 		(data: object = {}) => {
@@ -25,7 +27,7 @@ export function useWebSocket(
 			console.log('send', route);
 			context.ws.send(JSON.stringify({ route, ...data }));
 		},
-		[route, context]
+		[route] // not depending on context.ws because it triggers a loop
 	);
 
 	if (context.event?.data) {
@@ -43,5 +45,10 @@ export function useWebSocket(
 		}
 	}
 
-	return [state, send];
+	if (context.ws.readyState === WebSocket.OPEN && wsState !== WebSocket.OPEN) {
+		// we update local state to forceRender() child components
+		setWS(context.ws.readyState as State);
+	}
+
+	return [state, send, wsState];
 }

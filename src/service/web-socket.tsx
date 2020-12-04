@@ -13,6 +13,7 @@ interface Props {
 
 interface State {
 	ws?: WebSocket;
+	readyState: number;
 	timeStamp: number;
 	maxReconnect: number;
 	message?: MessageEvent;
@@ -32,6 +33,9 @@ export class WebSocketComponent extends React.Component<Props, State> {
 	setupWebSocket = (webSoc: WebSocket) => {
 		webSoc.onopen = (event: Event) => {
 			console.log('connected!', event);
+			this.setState((ws) => ({
+				readyState: ws.readyState
+			}));
 			webSoc.send(
 				JSON.stringify({
 					userAgent: navigator.userAgent

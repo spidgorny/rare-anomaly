@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useWebSocket } from '../service/use-web-socket';
 
 export default function ShowConfig(props: {}) {
-	const [data, send] = useWebSocket('/config');
+	const [data, send, wsState] = useWebSocket('/config');
 
 	const fetchLogFiles = useCallback(() => {
 		send();
@@ -11,7 +11,7 @@ export default function ShowConfig(props: {}) {
 
 	useEffect(() => {
 		fetchLogFiles();
-	}, []);
+	}, [fetchLogFiles, wsState]);
 
 	return (
 		<>

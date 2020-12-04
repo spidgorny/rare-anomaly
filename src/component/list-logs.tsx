@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useWebSocket } from '../service/use-web-socket';
 
 export default function ListLogs(props: {}) {
-	const [data, send] = useWebSocket('/list-logs', []);
+	const [data, send, wsState] = useWebSocket('/list-logs', []);
 
 	const fetchLogFiles = useCallback(() => {
 		send();
@@ -11,7 +11,7 @@ export default function ListLogs(props: {}) {
 
 	useEffect(() => {
 		fetchLogFiles();
-	}, []);
+	}, [fetchLogFiles, wsState]); // wsState to rerender after ws.readyState changes
 
 	return (
 		<>
