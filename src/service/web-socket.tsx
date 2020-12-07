@@ -13,7 +13,7 @@ interface Props {
 
 interface State {
 	ws?: WebSocket;
-	readyState: number;
+	readyState?: number;
 	timeStamp: number;
 	maxReconnect: number;
 	message?: MessageEvent;

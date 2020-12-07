@@ -20,9 +20,6 @@ export default function Aside() {
 							</a>
 						</li>
 						<li className="list-divider" />
-						<li className="nav-small-cap">
-							<span className="hide-menu">Log files</span>
-						</li>
 						<ListLogs />
 						<li className="list-divider" />
 						<li className="nav-small-cap">
