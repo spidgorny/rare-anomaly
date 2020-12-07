@@ -2,7 +2,6 @@ import './app.css';
 import { WebSocketComponent } from './service/web-socket';
 import Template from './page/template';
 import * as React from 'react';
-import ShowConfig from './component/show-config';
 import { WebSocketContext } from './service/use-web-socket';
 import Router from './router';
 

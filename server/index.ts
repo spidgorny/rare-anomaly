@@ -14,6 +14,8 @@ const json = require('koa-json');
 const health = require('koa-ping');
 const websocket = require('koa-easy-ws');
 
+process.env.LOGROOT = 'logs/';
+
 const app = new Koa();
 app.context.onerror = errorHandler();
 app.use(myHelmet);
@@ -33,7 +35,7 @@ app.use(router.routes()).use(router.allowedMethods());
 const ws = setupSockServer(app);
 ws.on('connection', (conn: Connection) => {
 	conn.on('data', async (message: string) => {
-		const reply = await routeEvent(message);
+		const reply = await routeEvent(message, conn);
 		console.log('reply', reply);
 		if (reply) {
 			conn.write(JSON.stringify(reply));

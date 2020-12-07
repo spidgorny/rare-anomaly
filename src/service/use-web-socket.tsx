@@ -19,13 +19,13 @@ export function useWebSocket(
 	const [wsState, setWS] = useState(context.ws.readyState as State);
 
 	const send = useCallback(
-		(data: object = {}) => {
+		(params: object = {}) => {
 			if (context.ws.readyState !== WebSocket.OPEN) {
 				console.warn('send not possible', context.ws.readyState);
 				return;
 			}
 			console.log('send', route);
-			context.ws.send(JSON.stringify({ route, ...data }));
+			context.ws.send(JSON.stringify({ route, ...params }));
 		},
 		[route] // not depending on context.ws because it triggers a loop
 	);
