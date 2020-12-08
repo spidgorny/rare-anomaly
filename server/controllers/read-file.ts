@@ -1,27 +1,40 @@
 import { Connection } from 'sockjs';
 import { LogByMinute } from '../model/log-by-minute';
-import moment, { Moment } from 'moment';
+import { oncePerSecond } from '../functions';
 
 const signale = require('signale');
 
-let oncePerSecondTimestamp: Moment;
-
-function oncePerSecond(): boolean {
-	if (!oncePerSecondTimestamp) {
-		oncePerSecondTimestamp = moment();
-		return false;
-	}
-
-	const diff = moment().diff(oncePerSecondTimestamp);
-	if (diff > 1000) {
-		oncePerSecondTimestamp = moment();
-		return true;
-	}
-
-	return false;
-}
-
 const LineByLineReader = require('line-by-line');
+
+export function startReadingFile(
+	filename: string,
+	onLine: (line: string) => void,
+	push: (data: any) => void
+) {
+	let linesProcessed = 0;
+	const lr = new LineByLineReader(filename);
+
+	lr.on('error', function (err: Error) {
+		signale.error(err);
+		push({ error: err });
+	});
+
+	lr.on('line', function (line: string) {
+		// signale.log(line);
+		onLine(line);
+		++linesProcessed;
+		if (oncePerSecond()) {
+			signale.log('linesProcessed', linesProcessed);
+		}
+	});
+
+	lr.on('end', function () {
+		//signale.log('end linesProcessed', linesProcessed);
+		push({ end: true });
+	});
+
+	return lr;
+}
 
 export function readFile(event: { file: string }, conn: Connection) {
 	if (!event.file) {
@@ -29,7 +42,10 @@ export function readFile(event: { file: string }, conn: Connection) {
 	}
 
 	const routeName = '/readFile';
-	let linesProcessed = 0;
+
+	const push = (data: any) => {
+		conn.write(JSON.stringify({ route: routeName, ...data }));
+	};
 
 	const log = new LogByMinute((isoTime: string, lines: string[]) => {
 		conn.write(
@@ -40,21 +56,14 @@ export function readFile(event: { file: string }, conn: Connection) {
 			})
 		);
 	});
-	const lr = new LineByLineReader(process.env.LOGROOT + event.file);
 
-	lr.on('error', function (err: Error) {
-		return { error: err };
-	});
+	startReadingFile(
+		process.env.LOGROOT + event.file,
+		(line: string) => {
+			log.addLine(line);
+		},
+		push
+	);
 
-	lr.on('line', function (line: string) {
-		// signale.log(line);
-		// conn.write(JSON.stringify({ route: routeName, line }));
-		if (oncePerSecond()) {
-			signale.log('linesProcessed', linesProcessed);
-		}
-	});
-
-	lr.on('end', function () {
-		return { end: true };
-	});
+	return { started: 'now' };
 }

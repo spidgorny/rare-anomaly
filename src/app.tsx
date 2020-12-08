@@ -2,8 +2,8 @@ import './app.css';
 import { WebSocketComponent } from './service/web-socket';
 import Template from './page/template';
 import * as React from 'react';
-import ShowConfig from './component/show-config';
 import { WebSocketContext } from './service/use-web-socket';
+import Router from './router';
 
 export default function App() {
 	return (
@@ -12,7 +12,7 @@ export default function App() {
 				render={(event: MessageEvent | undefined, ws: WebSocket) => (
 					<WebSocketContext.Provider value={{ event, ws }}>
 						<Template title="Ticket List">
-							<ShowConfig />
+							<Router />
 						</Template>
 					</WebSocketContext.Provider>
 				)}

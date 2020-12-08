@@ -2,32 +2,37 @@
   "name": "rare-anomaly",
   "description": "my awe-inspiring project",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/spidgorny/lass"
-  },
   "author": "Slawa <spidgorny@gmail.com> ()",
-  "contributors": [],
-  "license": "MIT",
-  "scripts": {
-    "dev": "ts-node-dev --project server/tsconfig.json server/index.ts",
-    "start": "cross-env PORT=3001 react-scripts start",
-    "build": "react-scripts build",
-    "rs:test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint:js": "xo",
-    "lint:md": "remark . -qfo",
-    "lint": "yarn run lint:js && yarn run lint:md",
-    "pretest": "yarn run lint",
-    "test": "cross-env NODE_ENV=test ava",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "test-coverage": "cross-env NODE_ENV=test nyc yarn run test"
+  "ava": {
+    "files": [
+      "test/**/*.ts"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register",
+      "babel-register"
+    ],
+    "babel": true
   },
-  "keywords": [
-    "lass",
-    "lass"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/spidgorny/koa-react-ts-quickstart",
+    "email": "spidgorny@gmail.com"
+  },
+  "contributors": [],
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -59,6 +64,8 @@
     "wouter": "^2.6.0"
   },
   "devDependencies": {
+    "@ava/babel": "^1.0.1",
+    "@babel/preset-typescript": "^7.12.7",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "@types/koa": "^2.11.6",
@@ -69,10 +76,13 @@
     "@types/sockjs": "^0.3.32",
     "@types/sockjs-client": "^1.5.0",
     "ava": "latest",
+    "babel-register": "^6.26.0",
     "codecov": "latest",
+    "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
-    "eslint": "latest",
+    "eslint": "^7.14.0",
     "eslint-config-xo-lass": "latest",
+    "fill-range": "^7.0.1",
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
@@ -80,26 +90,13 @@
     "prettier": "^2.2.1",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.2",
     "xo": "^0.35.0"
   },
-  "xo": {
-    "prettier": true,
-    "space": false,
-    "extends": [
-      "xo-lass"
-    ]
-  },
-  "type": "module",
   "engines": {
     "node": ">= 10"
   },
-  "bugs": {
-    "url": "https://github.com/spidgorny/koa-react-ts-quickstart",
-    "email": "spidgorny@gmail.com"
-  },
-  "homepage": "./",
-  "proxy": "http://localhost:3000",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -110,16 +107,42 @@
       "jsx-a11y/anchor-is-valid": "off"
     }
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "homepage": "./",
+  "jest": {
+    "verbose": true
+  },
+  "keywords": [
+    "lass",
+    "lass"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "proxy": "http://localhost:3000",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spidgorny/lass"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "dev": "ts-node-dev --project server/tsconfig.json server/index.ts",
+    "eject": "react-scripts eject",
+    "jest": "jest read",
+    "lint": "yarn run lint:js && yarn run lint:md",
+    "lint:js": "xo",
+    "lint:md": "remark . -qfo",
+    "pretest": "yarn run lint",
+    "rs:test": "react-scripts test",
+    "start": "cross-env PORT=3001 react-scripts start",
+    "start:dev": "concurrently \"yarn run dev\" \"yarn run start\"",
+    "test": "cross-env NODE_ENV=test ava",
+    "test-coverage": "cross-env NODE_ENV=test nyc yarn run test"
+  },
+  "xo": {
+    "prettier": true,
+    "space": false,
+    "extends": [
+      "xo-lass"
     ]
   }
 }

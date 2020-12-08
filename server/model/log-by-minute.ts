@@ -7,10 +7,15 @@ export class LogByMinute {
 
 	constructor(
 		protected onNewMinute: (isoTime: string, lines: string[]) => void
-	) {}
+	) {
+		moment.suppressDeprecationWarnings = true;
+	}
 
 	addLine(line: string) {
-		const timestamp = moment(line);
+		let timestamp = moment(line);
+		if (!timestamp.isValid()) {
+			timestamp = moment(line.split('GMT')[0] + 'GMT');
+		}
 		if (timestamp.isValid()) {
 			timestamp.seconds(0);
 			timestamp.millisecond(0);
