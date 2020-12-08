@@ -1,7 +1,7 @@
 import ShowConfig from './component/show-config';
 import * as React from 'react';
 import { Route, Switch } from 'wouter';
-import FilePage from './page/FilePage';
+import FilePage from './page/file-page';
 
 export default function Router() {
 	return (

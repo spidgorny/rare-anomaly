@@ -43,7 +43,7 @@ export class WebSocketComponent extends React.Component<Props, State> {
 			);
 		};
 		webSoc.onmessage = (body: MessageEvent) => {
-			console.log('onmessage', body);
+			// console.log('onmessage', body);
 			this.setState({
 				message: body,
 				timeStamp: Date.now()

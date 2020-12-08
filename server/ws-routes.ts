@@ -2,13 +2,15 @@ import { listLogs } from './controllers/list-logs';
 import { getConfig } from './controllers/get-config';
 import { readFile } from './controllers/read-file';
 import { Connection } from 'sockjs';
+import { fakeFile } from './controllers/fake-file';
 
 const signale = require('signale');
 
 const wsRoutes: Record<string, (msg: any, conn: Connection) => void> = {
 	'/list-logs': listLogs,
 	'/config': getConfig,
-	'/readFile': readFile
+	'/readFile': readFile,
+	'/fakeFile': fakeFile
 };
 
 export async function routeEvent(message: string, conn: Connection) {

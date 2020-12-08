@@ -1,7 +1,15 @@
 import * as React from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { State } from 'sockjs-client';
 const deepEqual = require('deep-equal');
+
+function usePrevious(value: any) {
+	const ref = useRef();
+	useEffect(() => {
+		ref.current = value;
+	});
+	return ref.current;
+}
 
 interface IWebSocketContext {
 	event?: MessageEvent;
@@ -24,28 +32,38 @@ export function useWebSocket(
 				console.warn('send not possible', context.ws.readyState);
 				return;
 			}
-			console.log('send', route);
+			console.log('send ==>', route);
 			context.ws.send(JSON.stringify({ route, ...params }));
 		},
-		[route] // not depending on context.ws because it triggers a loop
+		[route, context.ws] // not depending on context.ws because it triggers a loop
 	);
 
-	if (context.event?.data) {
-		try {
-			const data = JSON.parse(context.event.data);
-			console.log('useWebSocket', data.route);
-			if (data.route === route) {
-				if (!deepEqual(state, data.reply)) {
-					setState(data.reply);
-				}
-			}
-		} catch (e) {
-			console.error(e);
-			console.warn(context.event.data);
-		}
-	}
+	const prev = usePrevious(context.event);
 
-	if (context.ws.readyState === WebSocket.OPEN && wsState !== WebSocket.OPEN) {
+	useEffect(() => {
+		if (deepEqual(prev, context.event)) {
+			return;
+		}
+		if (context.event?.data) {
+			try {
+				const data = JSON.parse(context.event.data);
+				// console.log('useWebSocket data <==', data.route);
+				// console.log(data);
+				if (data.route === route) {
+					// this prevents infinite rerender
+					if (!deepEqual(state, data)) {
+						// console.log('new ws data', data);
+						setState(data);
+					}
+				}
+			} catch (e) {
+				console.error(e);
+				console.warn(context.event.data);
+			}
+		}
+	}, [context.event]);
+
+	if (context.ws.readyState !== wsState) {
 		// we update local state to forceRender() child components
 		setWS(context.ws.readyState as State);
 	}
