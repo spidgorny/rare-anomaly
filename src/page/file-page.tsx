@@ -4,8 +4,10 @@ import { useWebSocket } from '../service/use-web-socket';
 import debounceRender from 'react-debounce-render';
 import * as React from 'react';
 import { MyDebounce } from './debounce2';
+// @ts-ignore
+import { Sparklines, SparklinesBars } from 'react-sparklines';
 
-function FilePage(props: any) {
+export default function FilePage(props: any) {
 	const [data, send, wsState] = useWebSocket('/readFile');
 	const [logsPerMinute, setLPM] = useState({});
 	const [loading, setLoading] = useState(false);
@@ -60,6 +62,10 @@ function FilePage(props: any) {
 
 function RenderFilePage({ restart, loading, logsPerMinute }: any) {
 	console.log('render');
+	let sortedKeys = Object.keys(logsPerMinute).sort();
+	const sampleData = sortedKeys.map((key) => logsPerMinute[key]);
+	const min = sortedKeys[0];
+	const max = sortedKeys[sortedKeys.length - 1];
 	return (
 		<div>
 			<button
@@ -70,10 +76,18 @@ function RenderFilePage({ restart, loading, logsPerMinute }: any) {
 				Restart
 			</button>
 			<hr />
+			<Sparklines data={sampleData}>
+				<SparklinesBars style={{ fill: '#41c3f9' }} />
+			</Sparklines>
+			<div className="d-flex justify-content-between">
+				<div>{min}</div>
+				<div>{max}</div>
+			</div>
 			<p>Keys: {Object.keys(logsPerMinute).length}</p>
 			{/*<pre>{JSON.stringify(logsPerMinute, null, 2)}</pre>*/}
 		</div>
 	);
 }
 
-export default debounceRender(FilePage, 1000, { maxWait: 1000 });
+// not working
+// export default debounceRender(FilePage, 1000, { maxWait: 1000 });
