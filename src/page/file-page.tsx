@@ -6,6 +6,10 @@ import * as React from 'react';
 import { MyDebounce } from './debounce2';
 // @ts-ignore
 import { Sparklines, SparklinesBars } from 'react-sparklines';
+import ClickableSparklineBars, {
+	point
+} from '../component/clickable-sparkline-bars';
+import LoadLogs from '../component/load-logs';
 
 export default function FilePage(props: any) {
 	const [data, send, wsState] = useWebSocket('/readFile');
@@ -50,8 +54,9 @@ export default function FilePage(props: any) {
 	// const Render2 = debounceRender(Render, 1000, { maxWait: 1000 });
 
 	return (
-		<MyDebounce howOften={1000}>
+		<MyDebounce howOften={500}>
 			<RenderFilePage
+				filename={props.filename}
 				restart={restart}
 				loading={loading}
 				logsPerMinute={logsPerMinute}
@@ -60,8 +65,8 @@ export default function FilePage(props: any) {
 	);
 }
 
-function RenderFilePage({ restart, loading, logsPerMinute }: any) {
-	console.log('render');
+function RenderFilePage({ filename, restart, loading, logsPerMinute }: any) {
+	const [selected, selectMinute] = useState((null as unknown) as number);
 	let sortedKeys = Object.keys(logsPerMinute).sort();
 	const sampleData = sortedKeys.map((key) => logsPerMinute[key]);
 	const min = sortedKeys[0];
@@ -77,13 +82,22 @@ function RenderFilePage({ restart, loading, logsPerMinute }: any) {
 			</button>
 			<hr />
 			<Sparklines data={sampleData}>
-				<SparklinesBars style={{ fill: '#41c3f9' }} />
+				<ClickableSparklineBars
+					style={{ fill: '#41c3f9' }}
+					calcStyle={(i) => ({
+						fill: i === selected ? '#a1d300' : '#41c3f9'
+					})}
+					onClick={(m, i) => selectMinute(i)}
+				/>
 			</Sparklines>
 			<div className="d-flex justify-content-between">
 				<div>{min}</div>
 				<div>{max}</div>
 			</div>
 			<p>Keys: {Object.keys(logsPerMinute).length}</p>
+			<p>Selected: {selected}</p>
+			<hr />
+			<LoadLogs filename={filename} minute={sortedKeys[selected]} />
 			{/*<pre>{JSON.stringify(logsPerMinute, null, 2)}</pre>*/}
 		</div>
 	);
