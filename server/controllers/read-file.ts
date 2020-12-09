@@ -57,9 +57,14 @@ export function readFile(event: { file: string }, conn: Connection) {
 		);
 	});
 
+	let linesRead = 0;
 	startReadingFile(
 		process.env.LOGROOT + event.file,
 		(line: string) => {
+			// limit very large file for development
+			if (++linesRead > 10000) {
+				return;
+			}
 			log.addLine(line);
 		},
 		push

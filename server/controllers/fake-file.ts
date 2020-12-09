@@ -6,15 +6,15 @@ export function fakeFile(event: { file: string }, conn: Connection) {
 	const fakeData = [
 		{
 			isoTime: moment().add(1, 'second').toISOString(),
-			lines: 1
+			numLines: 1
 		},
 		{
 			isoTime: moment().add(2, 'second').toISOString(),
-			lines: 2
+			numLines: 2
 		},
 		{
 			isoTime: moment().add(3, 'second').toISOString(),
-			lines: 3
+			numLines: 3
 		}
 	];
 
