@@ -1,17 +1,20 @@
+import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useWebSocket } from '../service/use-web-socket';
 // @ts-ignore
-import debounceRender from 'react-debounce-render';
-import * as React from 'react';
+// import debounceRender from 'react-debounce-render';
 import { MyDebounce } from './debounce2';
 // @ts-ignore
 import { Sparklines, SparklinesBars } from 'react-sparklines';
-import ClickableSparklineBars, {
-	point
-} from '../component/clickable-sparkline-bars';
+import ClickableSparklineBars from '../component/clickable-sparkline-bars';
 import LoadLogs from '../component/load-logs';
+import { RouteComponentProps } from 'wouter';
 
-export default function FilePage(props: any) {
+export default function FilePage(
+	props: RouteComponentProps<{
+		filename: string;
+	}>
+) {
 	const [data, send, wsState] = useWebSocket('/readFile');
 	const [logsPerMinute, setLPM] = useState({});
 	const [loading, setLoading] = useState(false);
@@ -56,7 +59,7 @@ export default function FilePage(props: any) {
 	return (
 		<MyDebounce howOften={500}>
 			<RenderFilePage
-				filename={props.filename}
+				filename={props.params.filename}
 				restart={restart}
 				loading={loading}
 				logsPerMinute={logsPerMinute}
@@ -94,8 +97,11 @@ function RenderFilePage({ filename, restart, loading, logsPerMinute }: any) {
 				<div>{min}</div>
 				<div>{max}</div>
 			</div>
-			<p>Keys: {Object.keys(logsPerMinute).length}</p>
-			<p>Selected: {selected}</p>
+			<div className="d-flex justify-content-between">
+				<p>Keys: {Object.keys(logsPerMinute).length}</p>
+				<p>Selected: {selected}</p>
+				<p>Log rows: {sampleData[selected]}</p>
+			</div>
 			<hr />
 			<LoadLogs filename={filename} minute={sortedKeys[selected]} />
 			{/*<pre>{JSON.stringify(logsPerMinute, null, 2)}</pre>*/}

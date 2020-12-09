@@ -1,9 +1,22 @@
 import moment, { Moment } from 'moment';
+const signale = require('signale');
+
+export function parseTimestampFrom(line: string) {
+	let timestamp = moment(line);
+	if (!timestamp.isValid()) {
+		timestamp = moment(line.split('GMT')[0] + 'GMT');
+	}
+	if (timestamp.isValid()) {
+		timestamp.seconds(0);
+		timestamp.millisecond(0);
+	}
+	return timestamp;
+}
 
 export class LogByMinute {
 	data: Record<string, string[]> = {};
 
-	currentTimestamp?: Moment = undefined;
+	currentMinute?: Moment = undefined;
 
 	constructor(
 		protected onNewMinute: (isoTime: string, lines: string[]) => void
@@ -12,34 +25,29 @@ export class LogByMinute {
 	}
 
 	addLine(line: string) {
-		let timestamp = moment(line);
-		if (!timestamp.isValid()) {
-			timestamp = moment(line.split('GMT')[0] + 'GMT');
-		}
+		const timestamp = parseTimestampFrom(line);
 		if (timestamp.isValid()) {
-			timestamp.seconds(0);
-			timestamp.millisecond(0);
-
 			// before switching to a new minute,
 			// we need to notify that we are switching
-			if (this.currentTimestamp) {
-				if (!this.currentTimestamp.isSame(timestamp)) {
+			if (this.currentMinute) {
+				if (!this.currentMinute.isSame(timestamp)) {
 					this.onNewMinute(
-						this.currentTimestamp.toISOString(),
-						this.data[this.currentTimestamp.toISOString()]
+						this.currentMinute.toISOString(),
+						this.data[this.currentMinute.toISOString()]
 					);
 				}
 			}
 
-			this.currentTimestamp = timestamp;
+			this.currentMinute = timestamp;
 		}
+		// signale.log(this.currentMinute, line);
 
-		if (!this.currentTimestamp) {
+		if (!this.currentMinute) {
 			// this skips rows in the beginning
 			// which don't have a timestamp
 			return;
 		}
-		const key = this.currentTimestamp.toISOString();
+		const key = this.currentMinute.toISOString();
 
 		this.data[key] = key in this.data ? this.data[key] : [];
 		this.data[key].push(line);

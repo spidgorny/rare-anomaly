@@ -3,6 +3,7 @@ import { getConfig } from './controllers/get-config';
 import { readFile } from './controllers/read-file';
 import { Connection } from 'sockjs';
 import { fakeFile } from './controllers/fake-file';
+import { fetchLogs } from './controllers/fetch-logs';
 
 const signale = require('signale');
 
@@ -10,7 +11,8 @@ const wsRoutes: Record<string, (msg: any, conn: Connection) => void> = {
 	'/list-logs': listLogs,
 	'/config': getConfig,
 	'/readFile': readFile,
-	'/fakeFile': fakeFile
+	'/fakeFile': fakeFile,
+	'/fetchLogs': fetchLogs
 };
 
 export async function routeEvent(message: string, conn: Connection) {
