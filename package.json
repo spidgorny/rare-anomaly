@@ -131,7 +131,6 @@
   "scripts": {
     "build": "react-scripts build",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "dev": "ts-node-dev --project server/tsconfig.json server/index.ts",
     "eject": "react-scripts eject",
     "jest": "jest read",
     "lint": "yarn run lint:js && yarn run lint:md",
@@ -139,8 +138,9 @@
     "lint:md": "remark . -qfo",
     "pretest": "yarn run lint",
     "rs:test": "react-scripts test",
+    "server": "ts-node-dev --project server/tsconfig.json server/index.ts",
     "start": "cross-env PORT=3001 react-scripts start",
-    "start:dev": "concurrently \"yarn run dev\" \"yarn run start\"",
+    "start:dev": "concurrently \"yarn run server\" \"yarn run start\"",
     "test": "cross-env NODE_ENV=test ava",
     "test-coverage": "cross-env NODE_ENV=test nyc yarn run test"
   },
